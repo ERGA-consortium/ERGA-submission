@@ -118,16 +118,15 @@ def get_studies (project, center, cname, tolid, species, sample_coordinator, stu
             sample_coordinator = sample_coordinator,
             use = alt_use.lower()
         )        
-    elif study_type == "resequencing Data":
-        alias = cname.replace(' ', '_') + '_resequencing_data'
-        study_register[tolid_pref] = alias
-        description = "This project collects the " + study_type + " generated for " + species +\
-                         " (common name " + cname + ")" 
     else:
         if cname != "":
-          alias = cname.replace(' ', '_') + "_data"
+          alias = cname.replace(' ', '_')
         else:
-          alias = tolid + "_data"
+          alias = tolid
+        if study_type == "resequencing data":
+          alias += "_resequencing_data"
+        else:
+          alias += "_data"
 
         study_title = env.get_template("data_title.txt").render(
             species = species,
